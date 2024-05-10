@@ -1,0 +1,59 @@
+type Customer {
+	id: ID!
+	companyName: String!
+	contactPersonName: String!
+	phoneNumber: String!
+	discountPercent: Float
+	shippingAddresses: [Address!]!
+}
+
+type Address {
+	id: ID!
+	customer: Customer!
+	addressLine1: String!
+	city: String!
+	state: String!
+	ZIPCode: String!
+}
+
+type Query {
+	customers: [Customer!]!
+	addresses: [Address!]!
+	customer(id: ID!): Customer
+	address(id: ID!): Address
+}
+
+type Mutation {
+ 	addCustomer(input: AddCustomerInput): AddCustomerResponse!
+	addAddress (input: AddAddressInput): AddAddressResponse!
+}
+
+type AddCustomerInput {
+	companyName: String!
+	contactPersonName: String!
+	phoneNumber: String!
+	discountPercent: Float
+	address: Address!
+}
+
+type AddCustomerResponse {
+	code: Int!
+	success: Boolean!
+	message: String!
+	customer: Customer
+}
+
+type AddAddressInput {
+	customerID: ID!
+	addressLine1: String!
+	city: String!
+	state: String!
+	ZIPCode: String!
+}
+
+type AddAddressResponse {
+	code: Int!
+	success: Boolean!
+	message: String!
+	address: Address
+}
